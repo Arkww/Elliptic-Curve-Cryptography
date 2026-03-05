@@ -5,10 +5,7 @@ import unittest
 import sys
 import os
 
-# Add the path of the folder containing the file to import
 sys.path.append(os.path.abspath("Crypto/"))
-
-# Now you can import the file
 from EllipticFiniteCurve import EllipticFiniteCurve
 
 def point_is_abelian(Curve):

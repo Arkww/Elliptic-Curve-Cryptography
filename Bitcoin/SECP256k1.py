@@ -15,7 +15,7 @@ class SECP256k1(Curve):
     def __init__(self):
 
 
-        super().__init__(a=0, b=7, p=0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f
+        super().__init__(a=0, b=7, p=0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f)
 
         # Generator point coordinates
         self.Gx = 0x79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798

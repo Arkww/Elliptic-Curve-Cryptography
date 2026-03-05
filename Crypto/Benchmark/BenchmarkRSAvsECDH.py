@@ -4,7 +4,7 @@ import os
 import time
 import matplotlib.pyplot as plt
 
-# Ajout des chemins pour les dossiers RSA et Crypto (celui contenant le benchmark ECDH)
+# Add paths for RSA and Crypto folders (the one containing the ECDH benchmark)
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "RSA")))
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "Crypto")))
 
@@ -23,7 +23,7 @@ benchmark_ECDH()
 end_ecdh = time.time()
 ecdh_time = end_ecdh - start_ecdh
 
-# Affichage des tailles de clés
+# Display key sizes
 nb_bits_taille_rsa_cle()
 nb_bits_taille_ecdh_cle()
 
