@@ -4,9 +4,16 @@ An implementation of **Elliptic Curve Cryptography (ECC)** from scratch in Pytho
 
 ---
 
+---
+
 ## What This Project Does
 
 ### Elliptic Curve Arithmetic
+
+<p align="center">
+  <img src="images/ec_point_addition.png" alt="Elliptic Curve Point Addition" width="550"/>
+</p>
+
 - **Point addition** and **scalar multiplication** on curves over both **R** and **F_p** (finite fields)
 - **Double-and-add** algorithm for efficient scalar multiplication
 - Curve order computation using **Hasse's theorem**
@@ -20,6 +27,11 @@ An implementation of **Elliptic Curve Cryptography (ECC)** from scratch in Pytho
 - Message encryption/decryption with **AES-256-GCM** (authenticated encryption)
 
 ### Bitcoin Simulation
+
+<p align="center">
+  <img src="images/bitcoin_pipeline.png" alt="Bitcoin Address Generation Pipeline" width="700"/>
+</p>
+
 - Implementation of the **secp256k1** curve (the curve used by Bitcoin)
 - **Bitcoin address generation**: private key → public key → SHA-256 → RIPEMD-160 → Base58Check encoding
 - **ECDSA** transaction signing and verification on secp256k1
