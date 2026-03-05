@@ -1,3 +1,5 @@
+import sys
+
 import EllipticFiniteCurve as ecf
 import random
 from Point import Point
@@ -9,6 +11,7 @@ from cryptography.hazmat.primitives.kdf.hkdf import HKDF
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.backends import default_backend
 import os
+sys.path.append(os.path.abspath("Crypto/"))
 from Benchmark.Person import Person
 
 print("TEST CRYPTO: ")

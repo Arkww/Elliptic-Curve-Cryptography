@@ -1,76 +1,105 @@
-# 🔐 SAE4_Equipe_16
+# Elliptic Curve Cryptography
 
-L'objectif principal de ce projet est de **comprendre et implémenter les concepts mathématiques de l'ECC (Elliptic Curve Cryptography)** et de les appliquer à un **protocole cryptographique**.
-
----
-
-## 📦 Technologies utilisées
-
-Ce projet est implémenté en **Python 3.12** et utilise les bibliothèques suivantes (à installer si besoin via `pip install nom_de_la_bibliothèque`) :
-
-- **random** : Génération de points aléatoires  
-- **numpy** : Manipulation efficace de tableaux numériques  
-- **matplotlib** : Visualisation et tracé de courbes  
-- **os / sys** : Navigation et gestion des fichiers système  
-- **hashlib / base58** : Hachage et encodage des adresses **Bitcoin**  
-- **cryptography** : Benchmark des algorithmes de chiffrement **RSA** et **ECDH**  
-- **pytest** : Tests unitaires des fonctions (addition, multiplication scalaire, etc.)
+An implementation of **Elliptic Curve Cryptography (ECC)** from scratch in Python, covering the full mathematical foundation — from point arithmetic on curves over real numbers and finite fields, to real-world cryptographic protocols like **ECDH key exchange**, **AES encryption**, **ECDSA signatures**, and **Bitcoin address generation**.
 
 ---
 
-## 🧪 Tests unitaires
+## What This Project Does
 
-Pour exécuter les tests avec `pytest`, assurez-vous d'abord d'utiliser un environnement virtuel. Voici les étapes recommandées :
+### Elliptic Curve Arithmetic
+- **Point addition** and **scalar multiplication** on curves over both **R** and **F_p** (finite fields)
+- **Double-and-add** algorithm for efficient scalar multiplication
+- Curve order computation using **Hasse's theorem**
+- **Tonelli-Shanks** algorithm for modular square roots
+- **Cyclic subgroup generation** with proper base point selection
+- Abelian group property verification (closure, associativity, commutativity, neutral element, inverse)
 
-```bash
-# Activer l'environnement virtuel
-source myvenv/bin/activate
+### Cryptographic Protocols (ECDH + AES)
+- Full **Elliptic Curve Diffie-Hellman (ECDH)** key exchange between two parties
+- Shared secret derivation using **HKDF**
+- Message encryption/decryption with **AES-256-GCM** (authenticated encryption)
 
-# Installer les dépendances nécessaires
-pip install -r requirements.txt
+### Bitcoin Simulation
+- Implementation of the **secp256k1** curve (the curve used by Bitcoin)
+- **Bitcoin address generation**: private key → public key → SHA-256 → RIPEMD-160 → Base58Check encoding
+- **ECDSA** transaction signing and verification on secp256k1
+- Fictitious transaction creation and signing flow
 
-# Lancer les tests sur un fichier spécifique
-pytest chemin/vers/le_fichier_test.py
+### Benchmarking
+- Performance comparison between **RSA (3072 bits)** and **ECDH (256 bits)** at equivalent 128-bit security
+- Benchmarks for key generation, encryption, and decryption times
+- Key size comparison charts
+
+---
+
+## Project Structure
+
 ```
-
-**💡 Note :**  
-Si `pytest` n’est pas reconnu, ajoute ce chemin à ta variable d’environnement :
-
-```bash
-export PATH=$PATH:/mnt/netta/users/{votre_user}/.local/bin
+├── Curve.py                        # Abstract base class for elliptic curves
+├── Point.py                        # Point representation
+├── EllipticNoneFiniteCurve.py      # Elliptic curve over R
+├── utils.py                        # Utilities (factorize, gcd, double-and-add, Tonelli-Shanks, Fermat primality)
+├── TestAbelian.py                  # Abelian group property tests
+├── TestEllipticNoneFiniteCurve.py  # Tests for curves over R
+├── PointTest.py                    # Point equality tests
+│
+├── Crypto/
+│   ├── EllipticFiniteCurve.py      # Elliptic curve over F_p
+│   ├── TestCrypto.py               # ECDH key exchange + AES encryption demo
+│   ├── TestEllipticCurveFinite.py  # Tests for finite field curves
+│   └── Benchmark/
+│       ├── main.py                 # RSA vs ECDH benchmark with charts
+│       ├── benchmark.py            # Benchmark timing utilities
+│       ├── crypto.py               # ECC and RSA encryption wrappers
+│       ├── BenchmarkECDH.py        # ECDH-specific benchmark
+│       └── BenchmarkRSAvsECDH.py   # Side-by-side RSA vs ECDH comparison
+│
+├── Bitcoin/
+│   ├── SECP256k1.py                # secp256k1 curve implementation
+│   ├── BitcoinPerson.py            # Bitcoin address generation, ECDSA signing/verification
+│   └── SECP256k1Demonstration.py   # Full Bitcoin demo (address, transaction, signature)
+│
+└── IntroductionToECC.pdf        # Introduction to ECC reference document
 ```
 
 ---
 
-## 🚀 Utilisation
 
-Voici les principaux scripts disponibles dans le projet :
 
-- `Crypto/TestCrypto.py`  
-  ➤ Démontre la génération de clés jusqu'à la génération de la **clé secrète via ECDH**, en utilisant **notre propre courbe elliptique implémentée**.
+## Usage
 
-- `Crypto/Benchmark/main.py`  
-  ➤ Compare les performances entre **RSA (3076 bits)** et **ECDH (256 bits)** à l’aide de graphiques.  
-  Cette comparaison repose sur des librairies standard pour garantir l'équité du benchmark.
+**ECDH key exchange + AES encryption** (using our own elliptic curve implementation):
+```bash
+cd Crypto && python TestCrypto.py
+```
 
-- `Bitcoin/SECP256k1Demonstration.py`  
-  ➤ Montre la **génération d'adresses Bitcoin**, ainsi que la **signature** et la **vérification** d'une **transaction fictive** sur la courbe **SECP256k1**.
+**RSA vs ECDH benchmark** (with comparison charts):
+```bash
+cd Crypto/Benchmark && python main.py
+```
 
-- Tous les fichiers de tests
-  ➤ Permettent de valider les opérations fondamentales sur les courbes elliptiques : **addition de points, multiplication scalaire**, etc.
+**Bitcoin demo** (address generation, transaction signing, signature verification on secp256k1):
+```bash
+cd Bitcoin && python SECP256k1Demonstration.py
+```
+
+**Run tests:**
+```bash
+python TestEllipticNoneFiniteCurve.py
+cd Crypto && python TestEllipticCurveFinite.py
+```
 
 ---
 
-## ✅ Pré-requis
+## Documentation
 
-Avant d'exécuter les fichiers du projet, assurez-vous d’avoir installé toutes les dépendances sur l'environnement virtuel ( principalement pour les tests ):
+A complete paper covering the theory and implementation details of this project is available in the repository: **`IntroductionToECC.pdf`**. It covers elliptic curve definitions, group theory, point addition, scalar multiplication, finite field curves, cyclic subgroups, ECDH, ECDSA, El Gamal on elliptic curves, and the Baby Step Giant Step attack.
 
-```bash
-pip install -r requirements.txt
-```
+---
 
-Si le fichier `requirements.txt` n'existe pas encore, vous pouvez le générer avec :
+## Known Limitations
 
-```bash
-pip freeze > requirements.txt
-```
+- **Curve order computation** is brute-force (no Schoof's algorithm), so large primes p make it very slow. For example, p = 5791 takes ~11.5 seconds.
+- The ECDSA verification in the Bitcoin demo has a known issue that was not debugged in time.
+- This is an educational implementation — not suitable for production use.
+
