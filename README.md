@@ -4,8 +4,6 @@ An implementation of **Elliptic Curve Cryptography (ECC)** from scratch in Pytho
 
 ---
 
----
-
 ## What This Project Does
 
 ### Elliptic Curve Arithmetic
